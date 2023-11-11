@@ -1,22 +1,18 @@
 use indexmap::map::IndexMap;
 
 fn decode_message(msg: &str) -> String {
-    let mut words = IndexMap::<String, u16>::new();
     msg.split_whitespace()
         .map(|word| word.to_lowercase())
-        .for_each(|word| {
+        .fold(IndexMap::<String, u16>::new(), |mut words, word| {
             words
                 .entry(word)
                 .and_modify(|count| *count += 1)
                 .or_insert(1);
-        });
-    let mut decoded_message = String::new();
-    words
+            words
+        })
         .iter()
-        .for_each(|(key, value)| {
-            decoded_message.push_str(&format!("{}{}", key, value))
-        });
-    return decoded_message;
+        .map(|(key, value)| format!("{}{}", key, value))
+        .collect::<String>()
 }
 
 fn main() {
