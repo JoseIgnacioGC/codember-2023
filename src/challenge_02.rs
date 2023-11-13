@@ -1,7 +1,7 @@
 use crate::messages::CHALLENGE_02_MESSAGE;
 
 fn operate_with_symbols(symbols: &str) -> String {
-    let nums: String = symbols
+    symbols
         .chars()
         .fold((String::new(), 0), |(msg, count), char| {
             let operated = match char {
@@ -17,8 +17,7 @@ fn operate_with_symbols(symbols: &str) -> String {
             };
             (msg, operated.unwrap_or(count))
         })
-        .0;
-    nums
+        .0
 }
 
 pub fn operate_challenge_message() -> String {
