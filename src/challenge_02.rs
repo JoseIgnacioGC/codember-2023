@@ -1,3 +1,5 @@
+use crate::messages::CHALLENGE_02_MESSAGE;
+
 fn operate_with_symbols(symbols: &str) -> String {
     let nums: String = symbols
         .chars()
@@ -21,7 +23,7 @@ fn operate_with_symbols(symbols: &str) -> String {
 }
 
 pub fn operate_challenge_message() -> String {
-    operate_with_symbols(OPERATION)
+    operate_with_symbols(CHALLENGE_02_MESSAGE)
 }
 
 #[test]
@@ -35,4 +37,3 @@ fn operation_2() {
     let operation = operate_with_symbols("&##&*&@&");
     assert_eq!(operation, "0243");
 }
-const OPERATION: &str = "&###@&*&###@@##@##&######@@#####@#@#@#@##@@@@@@@@@@@@@@@*&&@@@@@@@@@####@@@@@@@@@#########&#&##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@&";
