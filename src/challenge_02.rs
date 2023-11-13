@@ -3,20 +3,19 @@ use crate::messages::CHALLENGE_02_MESSAGE;
 fn operate_with_symbols(symbols: &str) -> String {
     let nums: String = symbols
         .chars()
-        .fold((String::new(), 0), |(msg, num), char| {
-            let current_num: i32 = match char {
-                '#' => num + 1,
-                '@' => num - 1,
-                '*' => num * num,
-                '&' => num,
+        .fold((String::new(), 0), |(msg, count), char| {
+            let operated = match char {
+                '#' => Some(count + 1),
+                '@' => Some(count - 1),
+                '*' => Some(count * count),
+                '&' => None,
                 _ => panic!("symbol not supported"),
             };
-            if current_num == num {
-                let msg = format!("{}{}", msg, current_num);
-                (msg, num)
-            } else {
-                (msg, current_num)
-            }
+            let msg = match operated {
+                Some(_) => msg,
+                None => format!("{}{}", msg, count),
+            };
+            (msg, operated.unwrap_or(count))
         })
         .0;
     nums
