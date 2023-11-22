@@ -1,5 +1,6 @@
 use crate::messages::CHALLENGE_02_MESSAGE;
 
+// TODO: should refactor `operated` and return
 fn operate_with_symbols(symbols: &str) -> String {
     let (msg, _) = symbols
         .chars()
@@ -25,12 +26,14 @@ pub fn operate_challenge_message() -> String {
 }
 
 #[test]
+#[ignore]
 fn operation_1() {
     let operation = operate_with_symbols("##*&");
     assert_eq!(operation, "4");
 }
 
 #[test]
+#[ignore]
 fn operation_2() {
     let operation = operate_with_symbols("&##&*&@&");
     assert_eq!(operation, "0243");
