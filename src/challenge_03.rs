@@ -2,10 +2,11 @@ use std::io::prelude::*;
 use std::ops::Range;
 use std::{fs::File, io::BufReader, path::Path};
 
-struct Policies<'a> {
+#[derive(Clone)]
+struct Policies {
     range: Range<u16>,
     key_policy: char,
-    key: &'a str,
+    key: String,
 }
 
 fn get_policies_fields(policies_raw: &str) -> Policies {
@@ -27,7 +28,7 @@ fn get_policies_fields(policies_raw: &str) -> Policies {
         .first()
         .unwrap();
 
-    let key = fields.get(2).unwrap();
+    let key = fields.get(2).unwrap().to_string();
 
     Policies {
         range,
@@ -36,27 +37,22 @@ fn get_policies_fields(policies_raw: &str) -> Policies {
     }
 }
 
-fn is_the_key_valid(policies_raw: &str) -> bool {
+fn is_the_key_valid(policies: Policies) -> bool {
     let Policies {
         range,
         key_policy,
         key,
-    } = get_policies_fields(policies_raw);
-    let key_policy_count = key.chars().fold(u16::default(), |count, char| {
-        if char == key_policy {
-            count + 1
-        } else {
-            count
-        }
-    });
+    } = policies;
+
+    let key_policy_count = key
+        .chars()
+        .filter(|char| *char == key_policy)
+        .collect::<Vec<char>>()
+        .len()
+        .try_into()
+        .unwrap();
 
     range.contains(&key_policy_count)
-}
-
-fn get_encryption_policies_reader(filepath: &str) -> BufReader<File> {
-    let filepath = Path::new(filepath);
-    let file = File::open(filepath).unwrap();
-    BufReader::new(file)
 }
 
 #[derive(Default)]
@@ -65,42 +61,54 @@ pub struct Keys {
     pub invalid: Vec<String>,
 }
 
-const FILEPATH: &str = "data/encryption_policies.txt";
-
-pub fn get_encryption_policies_keys() -> Keys {
-    get_encryption_policies_reader(FILEPATH)
-        .lines()
-        .map(|line| line.unwrap())
-        .fold(Keys::default(), |mut key, policies_raw| {
-            let fields = get_policies_fields(&policies_raw);
-            if is_the_key_valid(&policies_raw) {
-                key.valid.push(fields.key.to_string());
+fn get_encryption_policies_keys(policies: Vec<Policies>) -> Keys {
+    policies
+        .iter()
+        .fold(Keys::default(), |mut key, policies_fields| {
+            if is_the_key_valid(policies_fields.clone()) {
+                key.valid.push(policies_fields.key.to_string());
                 key
             } else {
-                key.invalid.push(fields.key.to_string());
+                key.invalid.push(policies_fields.key.to_string());
                 key
             }
         })
+}
+
+pub fn get_challenge_keys() -> Keys {
+    let filepath = Path::new("data/encryption_policies.txt");
+    let file = File::open(filepath).unwrap();
+    let encryption_policies_raw = BufReader::new(file);
+
+    let encryption_policies = encryption_policies_raw
+        .lines()
+        .map(|line| get_policies_fields(&line.unwrap()))
+        .collect::<Vec<Policies>>();
+
+    get_encryption_policies_keys(encryption_policies)
 }
 
 // TODO: create more unit testing
 #[test]
 fn valid_key_1() {
     const KEY: &str = "2-4 f: fgff";
-    let is_valid = is_the_key_valid(KEY);
+    let policies_fields = get_policies_fields(KEY);
+    let is_valid = is_the_key_valid(policies_fields);
     assert!(is_valid)
 }
 
 #[test]
 fn valid_key_2() {
     const KEY: &str = "1-6 h: hhhhhh";
-    let is_valid = is_the_key_valid(KEY);
+    let policies_fields = get_policies_fields(KEY);
+    let is_valid = is_the_key_valid(policies_fields);
     assert!(is_valid)
 }
 
 #[test]
 fn invalid_key() {
     const KEY: &str = "4-6 z: zzzsg";
-    let is_not_valid = !is_the_key_valid(KEY);
+    let policies_fields = get_policies_fields(KEY);
+    let is_not_valid = !is_the_key_valid(policies_fields);
     assert!(is_not_valid)
 }
