@@ -1,6 +1,5 @@
 use std::fs;
 
-// TODO: should refactor `operated` and return
 fn operate_with_symbols(symbols: &str) -> String {
     let (msg, _) = symbols
         .chars()
@@ -10,7 +9,7 @@ fn operate_with_symbols(symbols: &str) -> String {
                 '@' => Some(count - 1),
                 '*' => Some(count * count),
                 '&' => None,
-                _ => panic!("symbol not supported"),
+                _ => panic!("symbol not supported: {}", char),
             };
             let msg = match operated {
                 Some(_) => msg,
@@ -18,12 +17,12 @@ fn operate_with_symbols(symbols: &str) -> String {
             };
             (msg, operated.unwrap_or(count))
         });
-    return msg;
+    msg
 }
 
 pub fn operate_challenge_message() -> String {
-    let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
-    operate_with_symbols(&challenge_message)
+    let challenge_message = fs::read_to_string("data/message_02.txt").unwrap();
+    operate_with_symbols(challenge_message.trim())
 }
 
 #[test]

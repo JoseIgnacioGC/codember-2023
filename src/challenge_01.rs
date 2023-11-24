@@ -20,7 +20,7 @@ fn decode_message(msg: &str) -> String {
 
 pub fn decode_challenge_message() -> String {
     let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
-    decode_message(&challenge_message)
+    decode_message(challenge_message.trim())
 }
 
 #[test]
