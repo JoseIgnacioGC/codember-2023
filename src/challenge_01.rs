@@ -1,7 +1,6 @@
 use crate::messages::CHALLENGE_01_MESSAGE;
 use indexmap::map::IndexMap;
 
-// PERF: use fold insted of map collect
 fn decode_message(msg: &str) -> String {
     msg.split_whitespace()
         .map(|word| word.to_lowercase())
@@ -13,8 +12,9 @@ fn decode_message(msg: &str) -> String {
             words
         })
         .iter()
-        .map(|(key, value)| format!("{}{}", key, value))
-        .collect::<String>()
+        .fold(String::new(), |msg, (key, value)| {
+            format!("{}{}{}", msg, key, value)
+        })
 }
 
 pub fn decode_challenge_message() -> String {
