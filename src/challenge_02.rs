@@ -20,9 +20,11 @@ fn operate_with_symbols(symbols: &str) -> String {
     msg
 }
 
-pub fn operate_challenge_message() -> String {
+pub fn print_operated_challenge_message() {
     let challenge_message = fs::read_to_string("data/message_02.txt").unwrap();
-    operate_with_symbols(challenge_message.trim())
+    let operated_symbols = operate_with_symbols(challenge_message.trim());
+
+    println!("challenge_02: {}", operated_symbols);
 }
 
 #[test]

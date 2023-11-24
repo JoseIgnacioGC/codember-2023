@@ -75,7 +75,7 @@ fn get_encryption_policies_keys(policies: Vec<Policies>) -> Keys {
         })
 }
 
-pub fn get_challenge_keys() -> Keys {
+pub fn print_challenge_invalid_keys() {
     let filepath = Path::new("data/encryption_policies.txt");
     let file = File::open(filepath).unwrap();
     let encryption_policies_raw = BufReader::new(file);
@@ -85,7 +85,17 @@ pub fn get_challenge_keys() -> Keys {
         .map(|line| get_policies_fields(&line.unwrap()))
         .collect::<Vec<Policies>>();
 
-    get_encryption_policies_keys(encryption_policies)
+    let keys = get_encryption_policies_keys(encryption_policies);
+
+    println!("challenge_03:");
+    println!(
+        "  13th invalid key: {}",
+        keys.invalid.get(12).expect("challenge 03 failed")
+    );
+    println!(
+        "  42nd invalid key: {}",
+        keys.invalid.get(41).expect("challenge 03 failed")
+    );
 }
 
 // TODO: create more unit testing

@@ -18,9 +18,11 @@ fn decode_message(msg: &str) -> String {
         })
 }
 
-pub fn decode_challenge_message() -> String {
+pub fn print_decoded_challenge_message() {
     let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
-    decode_message(challenge_message.trim())
+    let decoded_message = decode_message(challenge_message.trim());
+
+    println!("challenge_01: {}", decoded_message);
 }
 
 #[test]
