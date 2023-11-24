@@ -1,4 +1,4 @@
-use crate::messages::CHALLENGE_02_MESSAGE;
+use std::fs;
 
 // TODO: should refactor `operated` and return
 fn operate_with_symbols(symbols: &str) -> String {
@@ -22,7 +22,8 @@ fn operate_with_symbols(symbols: &str) -> String {
 }
 
 pub fn operate_challenge_message() -> String {
-    operate_with_symbols(CHALLENGE_02_MESSAGE)
+    let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
+    operate_with_symbols(&challenge_message)
 }
 
 #[test]

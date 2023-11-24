@@ -1,4 +1,5 @@
-use crate::messages::CHALLENGE_01_MESSAGE;
+use std::fs;
+
 use indexmap::map::IndexMap;
 
 fn decode_message(msg: &str) -> String {
@@ -18,7 +19,8 @@ fn decode_message(msg: &str) -> String {
 }
 
 pub fn decode_challenge_message() -> String {
-    decode_message(CHALLENGE_01_MESSAGE)
+    let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
+    decode_message(&challenge_message)
 }
 
 #[test]

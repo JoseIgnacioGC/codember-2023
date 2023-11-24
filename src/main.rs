@@ -1,8 +1,6 @@
 mod challenge_01;
 mod challenge_02;
 mod challenge_03;
-// TODO: move messages from mod messages to an external txt file inside `data/` dir
-mod messages;
 
 fn main() {
     let _challenge_01 = challenge_01::decode_challenge_message();
