@@ -98,7 +98,6 @@ pub fn print_challenge_invalid_keys() {
     );
 }
 
-// TODO: create more unit testing
 #[test]
 fn valid_key_1() {
     const KEY: &str = "2-4 f: fgff";
@@ -121,4 +120,19 @@ fn invalid_key() {
     let policies_fields = get_policies_fields(KEY);
     let is_not_valid = !is_the_key_valid(policies_fields);
     assert!(is_not_valid)
+}
+
+#[test]
+fn getting_encryption_policies_keys() {
+    const VALID_KEY: &str = "1-6 h: hhhhhh";
+    const INVALID_KEY: &str = "4-6 z: zzzsg";
+    let encryption_policies = vec![
+        get_policies_fields(VALID_KEY),
+        get_policies_fields(INVALID_KEY),
+    ];
+    let keys = get_encryption_policies_keys(encryption_policies);
+    let valid_key = keys.valid.get(0).unwrap();
+    let invalid_key = keys.invalid.get(0).unwrap();
+    assert_eq!("hhhhhh", valid_key);
+    assert_eq!("zzzsg", invalid_key);
 }
