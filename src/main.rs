@@ -5,7 +5,7 @@ mod challenge_03;
 fn main() {
     let _challenge_01 = challenge_01::decode_challenge_message();
     let _challenge_02 = challenge_02::operate_challenge_message();
-    let challenge_03 = challenge_03::get_keys();
+    let challenge_03 = challenge_03::get_encryption_policies_keys();
 
     println!("challenge_03:");
     println!(

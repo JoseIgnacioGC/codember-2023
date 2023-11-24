@@ -53,21 +53,21 @@ fn is_the_key_valid(policies_raw: &str) -> bool {
     range.contains(&key_policy_count)
 }
 
-#[derive(Default)]
-pub struct Keys {
-    pub valid: Vec<String>,
-    pub invalid: Vec<String>,
-}
-
 fn get_encryption_policies_reader(filepath: &str) -> BufReader<File> {
     let filepath = Path::new(filepath);
     let file = File::open(filepath).unwrap();
     BufReader::new(file)
 }
 
+#[derive(Default)]
+pub struct Keys {
+    pub valid: Vec<String>,
+    pub invalid: Vec<String>,
+}
+
 const FILEPATH: &str = "data/encryption_policies.txt";
 
-pub fn get_keys() -> Keys {
+pub fn get_encryption_policies_keys() -> Keys {
     get_encryption_policies_reader(FILEPATH)
         .lines()
         .map(|line| line.unwrap())
