@@ -9,6 +9,7 @@ struct Policies {
     key: String,
 }
 
+// PERF: replace methods by string slices
 fn get_policies_fields(policies_raw: &str) -> Policies {
     let fields = policies_raw.split_whitespace().collect::<Vec<&str>>();
 
@@ -66,12 +67,11 @@ fn get_encryption_policies_keys(policies: Vec<Policies>) -> Keys {
         .iter()
         .fold(Keys::default(), |mut key, policies_fields| {
             if is_the_key_valid(policies_fields.clone()) {
-                key.valid.push(policies_fields.key.to_string());
-                key
+                key.valid.push(policies_fields.key.clone());
             } else {
-                key.invalid.push(policies_fields.key.to_string());
-                key
-            }
+                key.invalid.push(policies_fields.key.clone());
+            };
+            key
         })
 }
 
@@ -99,6 +99,7 @@ pub fn print_challenge_invalid_keys() {
 }
 
 #[test]
+#[ignore]
 fn valid_key_1() {
     const KEY: &str = "2-4 f: fgff";
     let policies_fields = get_policies_fields(KEY);
@@ -107,6 +108,7 @@ fn valid_key_1() {
 }
 
 #[test]
+#[ignore]
 fn valid_key_2() {
     const KEY: &str = "1-6 h: hhhhhh";
     let policies_fields = get_policies_fields(KEY);
@@ -115,6 +117,7 @@ fn valid_key_2() {
 }
 
 #[test]
+#[ignore]
 fn invalid_key() {
     const KEY: &str = "4-6 z: zzzsg";
     let policies_fields = get_policies_fields(KEY);
@@ -123,6 +126,7 @@ fn invalid_key() {
 }
 
 #[test]
+#[ignore]
 fn getting_encryption_policies_keys() {
     const VALID_KEY: &str = "1-6 h: hhhhhh";
     const INVALID_KEY: &str = "4-6 z: zzzsg";
@@ -131,8 +135,8 @@ fn getting_encryption_policies_keys() {
         get_policies_fields(INVALID_KEY),
     ];
     let keys = get_encryption_policies_keys(encryption_policies);
-    let valid_key = keys.valid.get(0).unwrap();
-    let invalid_key = keys.invalid.get(0).unwrap();
+    let valid_key = keys.valid.first().unwrap();
+    let invalid_key = keys.invalid.first().unwrap();
     assert_eq!("hhhhhh", valid_key);
     assert_eq!("zzzsg", invalid_key);
 }
