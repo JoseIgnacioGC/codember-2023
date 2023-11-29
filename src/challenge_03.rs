@@ -9,7 +9,6 @@ struct Policies {
     key: String,
 }
 
-// PERF: replace methods by string slices
 fn get_policies_fields(policies_raw: &str) -> Policies {
     let fields = policies_raw.split_whitespace().collect::<Vec<&str>>();
 
@@ -21,13 +20,7 @@ fn get_policies_fields(policies_raw: &str) -> Policies {
         .collect::<Vec<u16>>();
     let range = *range_nums.first().unwrap()..(range_nums.get(1).unwrap() + 1u16);
 
-    let key_policy = *fields
-        .get(1)
-        .unwrap()
-        .chars()
-        .collect::<Vec<char>>()
-        .first()
-        .unwrap();
+    let key_policy = fields.get(1).unwrap().chars().next().unwrap();
 
     let key = fields.get(2).unwrap().to_string();
 
@@ -126,7 +119,6 @@ fn invalid_key() {
 }
 
 #[test]
-#[ignore]
 fn getting_encryption_policies_keys() {
     const VALID_KEY: &str = "1-6 h: hhhhhh";
     const INVALID_KEY: &str = "4-6 z: zzzsg";

@@ -24,7 +24,7 @@ fn is_the_file_real(items: FileNameItems) -> bool {
     alphanumeric.starts_with(&checksum)
 }
 
-#[derive(Default, Debug)]
+#[derive(Default)]
 pub struct Checksums {
     pub real: Vec<String>,
     pub fake: Vec<String>,
@@ -46,9 +46,9 @@ fn get_files_quarantine_checksums(items: Vec<FileNameItems>) -> Checksums {
 pub fn print_challenge_invalid_keys() {
     let filepath = Path::new("data/files_quarantine.txt");
     let file = File::open(filepath).unwrap();
-    let encryption_policies_raw = BufReader::new(file);
+    let files_quarantine_raw = BufReader::new(file);
 
-    let items = encryption_policies_raw
+    let items = files_quarantine_raw
         .lines()
         .map(|line| get_file_name_items(line.unwrap().trim()))
         .collect::<Vec<FileNameItems>>();
