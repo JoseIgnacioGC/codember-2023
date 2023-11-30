@@ -58,13 +58,13 @@ pub struct Keys {
 fn get_encryption_policies_keys(policies: Vec<Policies>) -> Keys {
     policies
         .iter()
-        .fold(Keys::default(), |mut key, policies_fields| {
+        .fold(Keys::default(), |mut keys, policies_fields| {
             if is_the_key_valid(policies_fields.clone()) {
-                key.valid.push(policies_fields.key.clone());
+                keys.valid.push(policies_fields.key.clone());
             } else {
-                key.invalid.push(policies_fields.key.clone());
+                keys.invalid.push(policies_fields.key.clone());
             };
-            key
+            keys
         })
 }
 
