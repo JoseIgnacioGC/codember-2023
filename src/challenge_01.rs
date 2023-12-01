@@ -27,28 +27,24 @@ pub fn print_decoded_challenge_message() {
 }
 
 #[test]
-#[ignore]
 fn decode_dog_cat() {
     let decoded = decode_message("cat dog dog car Cat doG sun");
     assert_eq!(decoded, "cat2dog3car1sun1");
 }
 
 #[test]
-#[ignore]
 fn decode_key_house() {
     let decoded = decode_message("keys house HOUSE house keys");
     assert_eq!(decoded, "keys2house3");
 }
 
 #[test]
-#[ignore]
 fn decode_cup_te() {
     let decoded = decode_message("cup te a cup");
     assert_eq!(decoded, "cup2te1a1");
 }
 
 #[test]
-#[ignore]
 fn decode_house() {
     let decoded = decode_message("houses house housess");
     assert_eq!(decoded, "houses1house1housess1");

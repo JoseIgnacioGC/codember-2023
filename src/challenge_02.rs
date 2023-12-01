@@ -29,14 +29,12 @@ pub fn print_operated_challenge_message() {
 }
 
 #[test]
-#[ignore]
 fn operation_1() {
     let operation = operate_with_symbols("##*&");
     assert_eq!(operation, "4");
 }
 
 #[test]
-#[ignore]
 fn operation_2() {
     let operation = operate_with_symbols("&##&*&@&");
     assert_eq!(operation, "0243");

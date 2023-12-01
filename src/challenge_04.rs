@@ -64,7 +64,6 @@ pub fn print_challenge_real_file_checksum() {
 }
 
 #[test]
-#[ignore]
 fn real_file_1() {
     const FILE_NAME: &str = "xyzz33-xy";
     let file_name_items = get_file_name_items(FILE_NAME);
@@ -73,7 +72,6 @@ fn real_file_1() {
 }
 
 #[test]
-#[ignore]
 fn fake_file_1() {
     const FILE_NAME: &str = "abcca1-ab1";
     let file_name_items = get_file_name_items(FILE_NAME);
@@ -82,7 +80,6 @@ fn fake_file_1() {
 }
 
 #[test]
-#[ignore]
 fn fake_file_2() {
     const FILE_NAME: &str = "abbc11-ca";
     let file_name_items = get_file_name_items(FILE_NAME);
@@ -91,7 +88,6 @@ fn fake_file_2() {
 }
 
 #[test]
-#[ignore]
 fn getting_files_quarantine_checksums() {
     const REAL_FILE_NAME: &str = "xyzz33-xy";
     const FAKE_FILE_NAME: &str = "abcca1-ab1";

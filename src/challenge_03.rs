@@ -90,7 +90,6 @@ pub fn print_challenge_invalid_keys() {
 }
 
 #[test]
-#[ignore]
 fn valid_key_1() {
     const KEY: &str = "2-4 f: fgff";
     let policies_fields = get_policies_fields(KEY);
@@ -99,7 +98,6 @@ fn valid_key_1() {
 }
 
 #[test]
-#[ignore]
 fn valid_key_2() {
     const KEY: &str = "1-6 h: hhhhhh";
     let policies_fields = get_policies_fields(KEY);
@@ -108,7 +106,6 @@ fn valid_key_2() {
 }
 
 #[test]
-#[ignore]
 fn invalid_key() {
     const KEY: &str = "4-6 z: zzzsg";
     let policies_fields = get_policies_fields(KEY);
