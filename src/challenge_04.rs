@@ -55,12 +55,11 @@ pub fn print_challenge_real_file_checksum() {
         .collect::<Vec<FileNameItems>>();
 
     let checksums = get_files_quarantine_checksums(items);
+    let real_checksum = checksums.real.get(32).expect("challenge 04 failed");
 
+    // assert_eq!("O2hrQ", real_checksum);
     println!("challenge_04:");
-    println!(
-        "  33th real file: {}",
-        checksums.real.get(32).expect("challenge 04 failed")
-    );
+    println!("  33th real file: {}", real_checksum);
     println!("  The result sholud be: O2hrQ");
 }
 

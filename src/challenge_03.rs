@@ -79,16 +79,14 @@ pub fn print_challenge_invalid_keys() {
         .collect::<Vec<Policies>>();
 
     let keys = get_encryption_policies_keys(encryption_policies);
+    let invalid_key_13 = keys.invalid.get(12).expect("challenge 03 failed");
+    let invalid_key_42 = keys.invalid.get(41).expect("challenge 03 failed");
 
+    assert_eq!("nljzuyfzb", invalid_key_13);
+    assert_eq!("bgamidqewtbus", invalid_key_42);
     println!("challenge_03:");
-    println!(
-        "  13th invalid key: {}",
-        keys.invalid.get(12).expect("challenge 03 failed")
-    );
-    println!(
-        "  42nd invalid key: {}",
-        keys.invalid.get(41).expect("challenge 03 failed")
-    );
+    println!("  13th invalid key: {}", invalid_key_13);
+    println!("  42nd invalid key: {}", invalid_key_42);
 }
 
 #[test]

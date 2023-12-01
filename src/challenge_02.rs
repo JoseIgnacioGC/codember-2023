@@ -24,6 +24,7 @@ pub fn print_operated_challenge_message() {
     let challenge_message = fs::read_to_string("data/message_02.txt").unwrap();
     let operated_symbols = operate_with_symbols(challenge_message.trim());
 
+    assert_eq!("024899455", operated_symbols);
     println!("challenge_02: {}", operated_symbols);
 }
 

@@ -78,7 +78,6 @@ pub fn print_challenge_hidden_message() {
 
     let hidden_message = get_hidden_message(users);
 
-    // TODO: add expected output in all others challenges
     assert_eq!("youh4v3beenpwnd", hidden_message);
     println!("challenge_05: {}", hidden_message);
 }

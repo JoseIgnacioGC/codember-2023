@@ -22,6 +22,7 @@ pub fn print_decoded_challenge_message() {
     let challenge_message = fs::read_to_string("data/message_01.txt").unwrap();
     let decoded_message = decode_message(challenge_message.trim());
 
+    assert_eq!("murcielago15leon15jirafa15cebra6elefante15rinoceronte15hipopotamo15ardilla15mapache15zorro15lobo15oso15puma2jaguar14tigre10leopardo10gato12perro12caballo14vaca14toro14cerdo14oveja14cabra14gallina10pato10ganso10pavo10paloma10halcon11aguila11buho11colibri9canario8loro8tucan8pinguino7flamenco7", decoded_message);
     println!("challenge_01: {}", decoded_message);
 }
 
