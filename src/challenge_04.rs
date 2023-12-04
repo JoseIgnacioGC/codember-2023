@@ -45,6 +45,7 @@ fn get_files_quarantine_checksums(items: Vec<FileNameItems>) -> Checksums {
         })
 }
 
+//  NOTE: Disclaimer, I did not fully understand the problem.
 pub fn print_challenge_real_file_checksum() {
     let filepath = Path::new("data/files_quarantine.txt");
     let file = File::open(filepath).unwrap();
