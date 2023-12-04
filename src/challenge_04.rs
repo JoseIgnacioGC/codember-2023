@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::io::prelude::*;
 use std::{fs::File, io::BufReader, path::Path};
 
@@ -21,29 +22,29 @@ fn is_the_file_real(items: FileNameItems) -> bool {
         alphanumeric,
         checksum,
     } = items;
-    alphanumeric.starts_with(&checksum)
+    alphanumeric.chars().all(char::is_alphanumeric) && alphanumeric.starts_with(&checksum)
 }
 
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct Checksums {
-    pub real: Vec<String>,
-    pub fake: Vec<String>,
+    pub real: HashMap<usize, String>,
+    pub fake: HashMap<usize, String>,
 }
 
 fn get_files_quarantine_checksums(items: Vec<FileNameItems>) -> Checksums {
     items
         .iter()
-        .fold(Checksums::default(), |mut checksums, items| {
+        .enumerate()
+        .fold(Checksums::default(), |mut checksums, (index, items)| {
             if is_the_file_real(items.clone()) {
-                checksums.real.push(items.checksum.clone());
+                checksums.real.insert(index + 1, items.checksum.clone());
             } else {
-                checksums.fake.push(items.checksum.clone());
+                checksums.fake.insert(index + 1, items.checksum.clone());
             };
             checksums
         })
 }
 
-// TODO: return the correct data
 pub fn print_challenge_real_file_checksum() {
     let filepath = Path::new("data/files_quarantine.txt");
     let file = File::open(filepath).unwrap();
@@ -55,9 +56,9 @@ pub fn print_challenge_real_file_checksum() {
         .collect::<Vec<FileNameItems>>();
 
     let checksums = get_files_quarantine_checksums(items);
-    let real_checksum = checksums.real.get(32).expect("challenge 04 failed");
+    let real_checksum = checksums.real.get(&33usize).expect("challenge 04 failed");
 
-    // assert_eq!("O2hrQ", real_checksum);
+    assert_eq!("O2hrQ", real_checksum);
     println!("challenge_04:");
     println!("  33th real file: {}", real_checksum);
     println!("  The result sholud be: O2hrQ");
@@ -96,8 +97,8 @@ fn getting_files_quarantine_checksums() {
         get_file_name_items(FAKE_FILE_NAME),
     ];
     let checksums = get_files_quarantine_checksums(items);
-    let valid_checksum = checksums.real.first().unwrap();
-    let invalid_checksum = checksums.fake.first().unwrap();
+    let valid_checksum = checksums.real.get(&1usize).unwrap();
+    let invalid_checksum = checksums.fake.get(&2usize).unwrap();
     assert_eq!("xy", valid_checksum);
     assert_eq!("ab1", invalid_checksum);
 }
