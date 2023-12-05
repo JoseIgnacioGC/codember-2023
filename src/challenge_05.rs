@@ -25,13 +25,13 @@ fn get_user(column: &str) -> UserModel {
 
 fn is_the_user_valid(user: UserModel) -> bool {
     let email_regex = Regex::new(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]+$").unwrap();
+    let alphanumeric_regex = Regex::new(r"^[[:alnum:]]+$").unwrap();
 
-    // PERF: replace chars.all(is_alphanumeric) by a regex
-    if user.id.is_empty() || !user.id.chars().all(char::is_alphanumeric) {
+    if user.id.is_empty() || !alphanumeric_regex.is_match(&user.id) {
         return false;
     }
 
-    if user.username.is_empty() || user.username.chars().any(|c| !c.is_alphanumeric()) {
+    if user.username.is_empty() || !alphanumeric_regex.is_match(&user.id) {
         return false;
     }
 

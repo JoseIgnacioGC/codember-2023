@@ -22,7 +22,7 @@ fn is_the_file_real(items: FileNameItems) -> bool {
         alphanumeric,
         checksum,
     } = items;
-    alphanumeric.chars().all(char::is_alphanumeric) && alphanumeric.starts_with(&checksum)
+    alphanumeric.starts_with(&checksum)
 }
 
 #[derive(Debug, Default)]
@@ -62,7 +62,6 @@ pub fn print_challenge_real_file_checksum() {
     assert_eq!("O2hrQ", real_checksum);
     println!("challenge_04:");
     println!("  33th real file: {}", real_checksum);
-    println!("  The result sholud be: O2hrQ");
 }
 
 #[test]
