@@ -49,14 +49,14 @@ To run the challenges and see the solutions, use the following commands:
 [Here](./src/CHALLENGES.md) you can see instructions on how to solve the challenges.
 
 ```bash
- .
-├──  data # data of the challenges
-└──  src
-    ├──  challenge_01.rs
-    ├──  challenge_02.rs
-    ├──  challenge_03.rs
-    ├──  challenge_04.rs
-    ├──  challenge_05.rs
-    ├──  CHALLENGES.md # Instructions of how to resolve the challenges
-    └──  main.rs # execute the code inside challenge_xx.rs files
+📂 .
+├── 📂 data # data of the challenges
+└── 📂 src
+    ├── challenge_01.rs
+    ├── challenge_02.rs
+    ├── challenge_03.rs
+    ├── challenge_04.rs
+    ├── challenge_05.rs
+    ├── CHALLENGES.md # Instructions of how to resolve the challenges
+    └── main.rs # execute the code inside challenge_xx.rs files
 ```
