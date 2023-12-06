@@ -46,7 +46,7 @@ To run the challenges and see the solutions, use the following commands:
 
 ## Folder Structure
 
-[Here](./src/CHALLENGES.md) you can see instructions on how to solve the challenges.
+[Here](./src/CHALLENGES.md) you can see instructions to solve the challenges.
 
 ```bash
 📂 .
