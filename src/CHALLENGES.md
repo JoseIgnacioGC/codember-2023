@@ -46,7 +46,7 @@ Multiplies the numeric value by itself. "&" Prints the current numeric value.
 The initial numeric value is 0 and the operations should be applied in the order
 in which they appear in the string of symbols.
 
-### Input Examples:
+### Input Examples
 
 Input: "##\*&" Expected Output: "4" Explanation: Increment (1), increment (2),
 multiply (4), print (4).
@@ -55,7 +55,7 @@ Input: "&##&\*&@&" Expected Output: "0243" Explanation: Print (0), increment
 (1), increment (2), print (2), multiply (4), print (4), decrement (3), print
 (3).
 
-### Your Challenge:
+### Your Challenge
 
 Develop a mini compiler that takes a text string and returns another text string
 with the result of executing the program.
@@ -93,7 +93,7 @@ The second key, zzzsg, is not valid; it contains the letter z 3 times, but needs
 at least 4. The first and third keys are valid: they contain the appropriate
 amount of f and h, respectively, according to their policies.
 
-### Your challenge:
+### Your challenge
 
 Determine how many encryption keys are valid according to their policies.
 
@@ -169,8 +169,8 @@ optional) Entry: 494ee0,madeval,twitch.tv,22,Montevideo Result: ❌ Invalid
 
 ### How to Solve It
 
-1. Analyze the list of database entries and detect the invalid
-   ones: /data/database_attacked.txt
+1. Analyze the list of database entries and detect the invalid ones:
+   /data/database_attacked.txt
 
 2. Find the first letter of the username of all invalid users. Gather them in
    the order of appearance and uncover the hidden message.
