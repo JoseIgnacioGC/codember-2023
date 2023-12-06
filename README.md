@@ -34,7 +34,7 @@ To run the challenges and see the solutions, use the following commands:
    [Install](https://www.rust-lang.org/tools/install) Rust if you don't already
    have it.
 
-1. Run the code and tests
+1. Run the code and tests.
 
    ```bash
    # Execute the code inside `challenge_xx.rs` files and print the solutions
