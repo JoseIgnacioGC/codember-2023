@@ -31,7 +31,7 @@ fn is_the_user_valid(user: UserModel) -> bool {
         return false;
     }
 
-    if user.username.is_empty() || !alphanumeric_regex.is_match(&user.id) {
+    if user.username.is_empty() || !alphanumeric_regex.is_match(&user.username) {
         return false;
     }
 
